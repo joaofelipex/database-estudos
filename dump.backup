@@ -1,0 +1,83 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.6 (Ubuntu 16.6-1.pgdg22.04+1)
+-- Dumped by pg_dump version 17.2 (Ubuntu 17.2-1.pgdg22.04+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: cliente; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cliente (
+    idcliente integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    cpf character(11),
+    rg character varying(15),
+    data_nascimento date,
+    genero character(1),
+    profissao character varying(30),
+    nacionalidade character varying(30),
+    logradouro character varying(30),
+    numero character varying(10),
+    complemento character varying(30),
+    bairro character varying(30),
+    municipio character varying(30),
+    uf character varying(30),
+    observacoes text
+);
+
+
+ALTER TABLE public.cliente OWNER TO postgres;
+
+--
+-- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cliente (idcliente, nome, cpf, rg, data_nascimento, genero, profissao, nacionalidade, logradouro, numero, complemento, bairro, municipio, uf, observacoes) FROM stdin;
+1	Manoel	88828383821	32323	2001-10-10	M	Estudante	Brasileira	Rua Joaquim Nabuco	23	Casa	Cidade Nova	Porto União	SC	\N
+2	Geraldo	12343299291	56565	1987-01-04	M	Engenheiro	Brasileira	Rua das Limas	200	Ap.	Centro	P. União	SC	\N
+3	Carlos	87732323227	55463	1967-10-01	M	Pedreiro	Brasileira	Rua das Laranjeiras	300	Apart.	Cto.	Canoinhas	SC	\N
+4	Adriana	12321222122	98777	1989-09-10	F	Jornalista	Brasileira	Rua das Limas	240	Casa	São Pedro	Porto Vitória	PR	\N
+5	Amanda	99982838828	28382	1991-03-04	F	Jorn.	Italiana	Av. Central	100	\N	São Pedro	General Carneiro	PR	\N
+6	Ângelo	99982828181	12323	2000-01-01	M	Professor	Brasileiro	Av. Beira Mar	300	\N	Ctr.	São Paulo	SP	\N
+7	Anderson	\N	\N	\N	M	Prof.	Italiano	Av. Brasil	100	Apartamento	Santa Rosa	Rio de Janeiro	SP	\N
+8	Camila	9998282828 	\N	2001-10-10	F	Professora	Norte Americana	Rua Central	4333	\N	Centro	Uberlância	MG	\N
+9	Cristiano	\N	\N	\N	M	Estudante	Alemã	Rua do Centro	877	Casa	Centro	Porto Alegre	RS	\N
+10	Fabrício	8828282828 	32323	\N	M	Estudante	Brasileiro	\N	\N	\N	\N	PU	SC	\N
+11	Fernanda	\N	\N	\N	F	\N	Brasileira	\N	\N	\N	\N	Porto União	SC	\N
+12	Gilmar	88881818181	888	2000-02-10	M	Estud.	\N	Rua das Laranjeiras	200	\N	C. Nova	Canoinhas	SC	\N
+13	Diego	1010191919 	111939	\N	M	Professor	Alemão	Rua Central	455	Casa	Cidade N.	São Paulo	SP	\N
+14	Jeferson	\N	\N	1983-07-01	M	\N	Brasileiro	\N	\N	\N	\N	União da Vitória	PR	\N
+15	Jessica	\N	\N	\N	F	Estudante	\N	\N	\N	\N	\N	União da Vitória	PR	\N
+\.
+
+
+--
+-- Name: cliente pk_cln_idcliente; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT pk_cln_idcliente PRIMARY KEY (idcliente);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
