@@ -231,6 +231,54 @@ select * from profissao;
 delete from profissao where idprofissao = 10;
 insert into profissao (idprofissao, nome) values (10, 'Teste');
 
+select * from cliente;
+alter table cliente drop nacionalidade;
+alter table cliente add idnacionalidade integer;
+alter table cliente add constraint fk_cln_idnacionalidade foreign key (idnacionalidade)
+select * from nacionalidade;
+update cliente set idnacionalidade = 1 where idcliente in (1, 2, 3, 4, 6, 10, 11, 14);
+update cliente set idnacionalidade = 2 where idcliente in (5, 7);
+update cliente set idnacionalidade = 3 where idcliente = 8;
+update cliente set idnacionalidade = 4 where idcliente in (9, 13);
+
+select * from cliente;
+alter table cliente drop complemento;
+alter table cliente add idcomplemento integer;
+alter table cliente add constraint fk_cln_idcomplemento foreign key (idcomplemento) references complemento (idcomplemento);
+select * from complemento;
+update cliente set idcomplemento = 1 where idcliente in (1, 4, 9, 13);
+update cliente set idcomplemento = 2 where idcliente in (2, 3, 7);
+
+select * from cliente;
+alter table cliente drop bairro;
+alter table cliente add idbairro integer;
+alter table cliente add constraint fk_cln_idbairro foreign key (idbairro) references bairro (idbairro);
+
+select * from bairro;
+update cliente set idbairro = 1 where idcliente in (1, 12, 13);
+update cliente set idbairro = 2 where idcliente in (2, 3, 6, 8, 9);
+update cliente set idbairro = 3 where idcliente in (4, 5);
+update cliente set idbairro = 4 where idcliente = 7;
+
+select * from cliente;
+create table uf (
+	iduf integer not null,
+	nome varchar(30) not null,
+	sigla char(2) not null,
+	
+	constraint pk_ufd_idunidade_federacao primary key (iduf),
+	constraint un_ufd_nome unique (nome),
+	constraint un_ufd_sigla unique (sigla)
+);
+
+insert into uf (iduf, nome, sigla) values (1, 'Santa Catarina', 'SC');
+insert into uf (iduf, nome, sigla) values (2, 'Paraná', 'PR');
+insert into uf (iduf, nome, sigla) values (3, 'São Paulo', 'SP');
+insert into uf (iduf, nome, sigla) values (4, 'Minas Gerais', 'MG');
+insert into uf (iduf, nome, sigla) values (5, 'Rio Grande do Sul', 'RS');
+insert into uf (iduf, nome, sigla) values (6, 'Rio de Janeiro', 'RJ');
+select * from uf;
+
 
 
 
