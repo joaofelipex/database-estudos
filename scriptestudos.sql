@@ -249,6 +249,24 @@ select * from complemento;
 update cliente set idcomplemento = 1 where idcliente in (1, 4, 9, 13);
 update cliente set idcomplemento = 2 where idcliente in (2, 3, 7);
 
+select * from cliente;select * from municipio;
+
+select * from cliente;
+alter table cliente drop municipio;
+alter table cliente drop uf;
+alter table cliente add idmunicipio integer;
+alter table cliente add constraint fl_cliente_idmunicipio foreign key (idmunicipio) references municipio (idmunicipio);
+
+update cliente set idmunicipio = 1 where idcliente in (1, 2, 10, 11);
+update cliente set idmunicipio = 2 where idcliente in (3, 12);
+update cliente set idmunicipio = 3 where idcliente = 4;
+update cliente set idmunicipio = 4 where idcliente in (5);
+update cliente set idmunicipio = 4 where idcliente in (6, 13);
+update cliente set idmunicipio = 4 where idcliente in (7);
+update cliente set idmunicipio = 4 where idcliente in (8);
+update cliente set idmunicipio = 4 where idcliente in (9);
+update cliente set idmunicipio = 4 where idcliente in (14, 15);
+
 select * from cliente;
 alter table cliente drop bairro;
 alter table cliente add idbairro integer;
@@ -318,6 +336,136 @@ update cliente set idmunicipio = 4 where idcliente in (14, 15);
 
 select * from cliente;
 
+
+-- RESOLUÇÃO DE EXERCÍCIOS
+
+-- Criação de outras tabelas 2 e inserção nas tabelas
+
+create table fornecedor (
+	idfornecedor integer not null,
+	nome varchar(50) not null,
+	
+	constraint pk_frn_idfornecedor primary key (idfornecedor),
+	constraint un_frn_nome unique (nome)
+);
+
+insert into fornecedor (idfornecedor, nome) values (1, 'Cap. Computadores');
+insert into fornecedor (idfornecedor, nome) values (2, 'AA. Computadores');
+insert into fornecedor (idfornecedor, nome) values (3, 'BB. Máquinas');
+select * from fornecedor;
+
+create table vendedor (
+	idvendedor integer not null,
+	nome varchar(50) not null,
+	
+	constraint pk_vnd_idvendedor primary key (idvendedor),
+	constraint un_vnd_nome unique (nome)
+);
+
+insert into vendedor (idvendedor, nome) values (1, 'André');
+insert into vendedor (idvendedor, nome) values (2, 'Alisson');
+insert into vendedor (idvendedor, nome) values (3, 'José');
+insert into vendedor (idvendedor, nome) values (4, 'Ailton');
+insert into vendedor (idvendedor, nome) values (5, 'Maria');
+insert into vendedor (idvendedor, nome) values (6, 'Suelem');
+insert into vendedor (idvendedor, nome) values (7, 'Aline');
+insert into vendedor (idvendedor, nome) values (8, 'Silvana');
+select * from vendedor;
+
+create table transportadora (
+	idtransportadora integer not null,
+	idmunicipio integer,
+	nome varchar(50) not null,
+	logradouro varchar(50),
+	numero varchar(10),
+	
+	constraint pk_trn_idtransportadora primary key (idtransportadora),
+	constraint fk_trn_idmunicipio foreign key (idmunicipio) references municipio (idmunicipio),
+	constraint un_trn_nome unique (nome)
+);
+
+select * from municipio;
+
+insert into transportadora (idtransportadora, idmunicipio, nome, logradouro, numero)
+values (1, 9, 'BS. Transportes', 'Rua das Limas', '01');
+insert into transportadora (idtransportadora, idmunicipio, nome)
+values (2, 5, 'União Transportes');
+select * from transportadora;
+
+create table produto (
+	idproduto integer not null,
+	idfornecedor integer not null,
+	nome varchar(50) not null,
+	valor numeric(10,2) not null,
+	
+	constraint pk_prd_idproduto primary key (idproduto),
+	constraint fk_prd_idfornecedor foreign key (idfornecedor) references fornecedor (idfornecedor)
+);
+select * from fornecedor;
+
+insert into produto (idproduto, idfornecedor, nome, valor)
+values (1, 1, 'Microcomputador', 800);
+insert into produto (idproduto, idfornecedor, nome, valor)
+values (2, 1, 'Monitor', 500);
+insert into produto (idproduto, idfornecedor, nome, valor)
+values (3, 2, 'Placa Mãe', 200);
+insert into produto (idproduto, idfornecedor, nome, valor)
+values (4, 2, 'HD', 150);
+insert into produto (idproduto, idfornecedor, nome, valor)
+values (5, 2, 'Placa de vídeo', 200);
+insert into produto (idproduto, idfornecedor, nome, valor)
+values (6, 3, 'Memória RAM', 100);
+insert into produto (idproduto, idfornecedor, nome, valor)
+values (7, 1, 'Gabinete', 35);
+
+select * from produto;
+
+create table pedido (
+	idpedido integer not null,
+	idcliente integer not null,
+	idtransportadora integer,
+	idvendedor integer not null,
+	data_pedido date not null,
+	valor numeric(10,2) not null,
+	
+	constraint pk_pdd_idpedido primary key (idpedido),
+	constraint fk_pdd_idcliente foreign key (idcliente) references cliente (idcliente),
+	constraint fk_pdd_idtransportadora foreign key (idtransportadora) references transportadora (idtransportadora),
+	constraint fk_pdd_idvendedor foreign key (idvendedor) references vendedor (idvendedor)
+);
+
+select * from pedido;
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (1, '2008-04-01', 1300, 'Manoel', 'BS. Transportes', 'André');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (2, '2008-04-01', 500, 'Manoel', 'BS. Transportes', 'André');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (3, '2008-04-01', 300, 'Fernanda', 'União Transportes', 'Maria');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (4, '2008-04-01', 1000, 'Camila', 'BS. Transportes', 'Aline');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (5, '2008-04-01', 200, 'Cristiano', 'BS. Transportes', 'Suelem');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (6, '2008-04-01', 1985, 'Fabrício', 'BS. Transportes', 'Suelem');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (7, '2008-04-01', 800, 'Carlos', 'BS. Transportes', 'Aline');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (8, '2008-04-01', 175, 'Carlos', 'BS. Transportes', 'Aline');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (9, '2008-04-01', 1300, 'Gilmar', 'BS. Transportes', 'Silvana');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (10, '2008-04-01', 200, 'Ângelo', 'BS. Transportes', 'Silvana');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (11, '2008-04-01', 300, 'Jéssica', 'BS. Transportes', 'André');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (12, '2008-04-01', 500, 'Jéssica', 'BS. Transportes', 'Maria');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (13, '2008-04-01', 350, 'Cristiano', 'BS. Transportes', 'Aline');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (14, '2008-04-01', 300, 'Geraldo', 'BS. Transportes', 'Maria');
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor)
+values (15, '2008-04-01', 200, 'Fernanda', 'BS. Transportes', 'Maria');
 
 
 
