@@ -575,6 +575,26 @@ select idpedido, valor from pedido where valor between 1000 and 1500;
 7.
 select idpedido, valor from pedido where valor not between 100 and 500;
 8.
+select * from vendedor;
+select * from pedido where idvendedor = 1 order by valor desc;
+9.
+select * from cliente;
+select * from pedido where idcliente = 1 order by valor;
+10.
+select * from pedido; 
+select * from pedido where idcliente = 15 and idvendedor = 1;
+11.
+select * from transportadora;
+select * from pedido;
+select * from pedido where idtransportadora = 2;
+12.
+select * from vendedor;
+select * from pedido where idvendedor = 5 or idvendedor = 7;
+13.
+select * from municipio;
+select * from cliente where idmunicipio = 9 or idmunicipio = 1;
+
+
 
 
 
