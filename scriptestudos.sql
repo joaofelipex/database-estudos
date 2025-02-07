@@ -563,6 +563,18 @@ select nome from vendedor order by nome asc;
 select * from produto;
 select nome, valor from produto where valor >= '200' order by valor asc;
 3.
+select nome, valor, valor + (valor * 10) / 100 as Reajuste from produto;
+4.
+select * from uf;
+select * from municipio where iduf = 5;
+5.
+select * from pedido;
+select data_pedido, valor from pedido where data_pedido between '2008-04-10' and '2008-04-25' order by valor asc;
+6.
+select idpedido, valor from pedido where valor between 1000 and 1500;
+7.
+select idpedido, valor from pedido where valor not between 100 and 500;
+8.
 
 
 
