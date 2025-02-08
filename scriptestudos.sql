@@ -592,7 +592,42 @@ select * from vendedor;
 select * from pedido where idvendedor = 5 or idvendedor = 7;
 13.
 select * from municipio;
-select * from cliente where idmunicipio = 9 or idmunicipio = 1;
+select * from cliente where idmunicipio = 1 or idmunicipio = 9;
+14.
+select * from cliente where not idmunicipio <> 1 and idmunicipio <> 9;
+15.
+select * from cliente where logradouro is null;
+16.
+select * from cliente where logradouro like 'Av%';
+17.
+select * from vendedor where nome like 'S%';
+18.
+select * from vendedor where nome like '%a';
+19.
+select * from vendedor where nome not like 'A%';
+20.
+select * from uf;
+select * from municipio;
+select * from municipio where nome like 'P%' and iduf = 1;
+21.
+select * from transportadora where logradouro is not null;
+22.
+select * from pedido_produto where idpedido = 1; 
+23.
+select * from pedido_produto where idpedido = 6 or idpedido = 10;
+-- FIM DO EXERCÍCIO
+
+
+
+--Funções agregadas
+
+select avg(valor) from pedido;
+
+select count(idmunicipio) from municipio;
+
+select count(*) from municipio;
+
+select * from transportadora
 
 
 
